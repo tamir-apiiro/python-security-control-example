@@ -26,6 +26,9 @@ def authenticate_user(credentials: HTTPBasicCredentials = Depends(security)):
             headers={"WWW-Authenticate": "Basic"},
         )
 
+def authorize_user(credentials: HTTPBasicCredentials = Depends(security)):
+    pass
+
 @app.post("/call_method_one")
 async def call_method_one(data: dict):
     result = method_one(data)
@@ -44,4 +47,5 @@ async def call_method_three(param1: str, param2: int):
 @app.get("/call_method_four")
 async def call_method_four(credentials: HTTPBasicCredentials = Depends(security)):
     authenticate_user(credentials)
+    authorize_user(credentials)
     return {"result": "Authenticated Method Four called"}
